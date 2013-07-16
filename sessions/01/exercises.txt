@@ -1,0 +1,23 @@
+Exercises -- Session 1
+
+WHERE exercises
+- Retrieve all presidents from Virginia
+- Retrieve all presidents from New York or Ohio
+- Return only the last_name, first_name and city of those presidents from Massachusetts
+- Is Barack Obama in the data set?
+
+    
+GROUP BY and Aggregate Functions
+- Count the number of presidents from each state.
+- What is the latest birth date of the presidents?  The earliest?
+- For each state, what is the earliest birth date?  The latest? 
+
+
+ORDER BY
+- Sort the president data by date of birth
+    - Reverse the order of that sort.  (Put DESC after the name of the field used for the sort.)
+- Sort the president data by state and date of death.  (You can ORDER BY multiple fields with a comma between the fields.)
+
+
+
+
