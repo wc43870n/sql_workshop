@@ -1,4 +1,7 @@
-DROP TABLE books.authors;
+DROP DATABASE IF EXISTS books;
+CREATE DATABASE books;
+
+DROP TABLE IF EXISTS books.authors;
 CREATE TABLE books.authors
   (
   au_id    CHAR(3)     NOT NULL,
@@ -20,7 +23,7 @@ INSERT INTO books.authors VALUES('A06','','Kellsey','650-836-7128','390 Serra Ma
 INSERT INTO books.authors VALUES('A07','Paddy','O''Furniture','941-925-0752','1442 Main St','Sarasota','FL','34236');
 
 
-DROP TABLE books.publishers;
+DROP TABLE IF EXISTS books.publishers;
 CREATE TABLE books.publishers
   (
   pub_id   CHAR(3)     NOT NULL,
@@ -36,7 +39,7 @@ INSERT INTO books.publishers VALUES('P03','Schadenfreude Press','Hamburg',NULL,'
 INSERT INTO books.publishers VALUES('P04','Tenterhooks Press','Berkeley','CA','USA');
 
 
-DROP TABLE books.titles;
+DROP TABLE IF EXISTS books.titles;
 CREATE TABLE books.titles
   (
   title_id   CHAR(3)      NOT NULL,
@@ -65,7 +68,7 @@ INSERT INTO books.titles VALUES('T12','Spontaneous, Not Annoying','biography','P
 INSERT INTO books.titles VALUES('T13','What Are The Civilian Applications?','history','P03',802,29.99,10467,DATE '1999-05-31',1);
 
 
-DROP TABLE books.title_authors;
+DROP TABLE IF EXISTS books.title_authors;
 CREATE TABLE books.title_authors
   (
   title_id      CHAR(3)      NOT NULL,
@@ -93,7 +96,7 @@ INSERT INTO books.title_authors VALUES('T12','A02',1,1.0);
 INSERT INTO books.title_authors VALUES('T13','A01',1,1.0);
 
 
-DROP TABLE books.royalties;
+DROP TABLE IF EXISTS books.royalties;
 CREATE TABLE books.royalties
   (
   title_id     CHAR(3)      NOT NULL,
@@ -116,7 +119,7 @@ INSERT INTO books.royalties VALUES('T12',50000,0.09);
 INSERT INTO books.royalties VALUES('T13',20000,0.06);
 
 
-DROP TABLE books.au_orders;
+DROP TABLE IF EXISTS books.au_orders;
 CREATE TABLE books.au_orders (
   title_id CHAR(3),
   author1  CHAR(3),
@@ -138,7 +141,7 @@ INSERT INTO books.au_orders VALUES('T12','A02',NULL,NULL);
 INSERT INTO books.au_orders VALUES('T13','A01',NULL,NULL);
 
 
-DROP TABLE books.dups;
+DROP TABLE IF EXISTS books.dups;
 CREATE TABLE books.dups (
   id         INTEGER,
   title_name VARCHAR(40),
@@ -155,7 +158,7 @@ INSERT INTO books.dups VALUES(7,'Book Title 3','biography',7.00);
 INSERT INTO books.dups VALUES(8,'Book Title 1','history', 10.00);
 
 
-DROP TABLE books.empsales;
+DROP TABLE IF EXISTS books.empsales;
 CREATE TABLE books.empsales (
   emp_id CHAR(3) NOT NULL PRIMARY KEY,
   sales  INTEGER NOT NULL
@@ -172,7 +175,7 @@ INSERT INTO books.empsales VALUES('E09',900);
 INSERT INTO books.empsales VALUES('E10',700);
 
 
-DROP TABLE books.roadtrip;
+DROP TABLE IF EXISTS books.roadtrip;
 CREATE TABLE books.roadtrip (
   seq   INTEGER     NOT NULL PRIMARY KEY,
   city  VARCHAR(17) NOT NULL,
@@ -186,7 +189,7 @@ INSERT INTO books.roadtrip VALUES(5,'Los Angeles, CA',1251);
 INSERT INTO books.roadtrip VALUES(6,'San Diego, CA',1372);
 
 
-DROP TABLE books.telephones;
+DROP TABLE IF EXISTS books.telephones;
 CREATE TABLE books.telephones (
   au_id    CHAR(3)  NOT NULL,
   tel_type CHAR(1)  NOT NULL,
@@ -201,7 +204,7 @@ INSERT INTO books.telephones VALUES('A04','W','555-555-5555');
 INSERT INTO books.telephones VALUES('A05','H','666-666-6666');
 
 
-DROP TABLE books.temps;
+DROP TABLE IF EXISTS books.temps;
 CREATE TABLE books.temps (
   id      INTEGER NOT NULL PRIMARY KEY,
   hi_temp INTEGER NOT NULL
@@ -223,7 +226,7 @@ INSERT INTO books.temps VALUES(14,51);
 INSERT INTO books.temps VALUES(15,52);
 
 
-DROP TABLE books.time_series;
+DROP TABLE IF EXISTS books.time_series;
 CREATE TABLE books.time_series (
   seq   INTEGER NOT NULL PRIMARY KEY,
   price REAL    NOT NULL
@@ -245,7 +248,7 @@ INSERT INTO books.time_series VALUES(14,12.5);
 INSERT INTO books.time_series VALUES(15,11.0);
 
 
-DROP TABLE books.employees;
+DROP TABLE IF EXISTS books.employees;
 CREATE TABLE books.employees (
   emp_id   CHAR(3)     NOT NULL PRIMARY KEY,
   emp_name VARCHAR(20) NOT NULL,
@@ -258,7 +261,7 @@ INSERT INTO books.employees VALUES('E04','William Boot','E03');
 INSERT INTO books.employees VALUES('E05','Mr. Corker','E03');
 
 
-DROP TABLE books.hier;
+DROP TABLE IF EXISTS books.hier;
 CREATE TABLE books.hier (
   emp_id    CHAR(3)     NOT NULL PRIMARY KEY,
   emp_title VARCHAR(20) NOT NULL,
