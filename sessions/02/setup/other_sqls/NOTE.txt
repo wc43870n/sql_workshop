@@ -1,0 +1,10 @@
+These scripts have not been tested.
+
+It is possible that they may fail for lack of specification of the target
+database in the table references.  This could be handled in one of two ways:
+-   Designation of a default database in your SQL client.
+-   Editing the file to prepend each reference to a table with 'books.'.
+
+If you have trouble and those suggestions aren't helpful, please contact me.
+
+gordon@practicalhorseshoeing.com

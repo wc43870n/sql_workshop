@@ -1,0 +1,216 @@
+==============================================================================
+PRELIMINARIES
+------------------------------------------------
+EXERCISE GOALS
+These exercises should be simple enough to be solvable and illustrative of
+basic principles.  They should lead you through the construction of more
+complicated queries with those principles.  The goal is to get you sufficiently
+familiar with the principles that you are comfortable manipulating them, and
+aware of their combination into larger queries so you can begin to imagine the
+construction of queries that will answer questions.
+
+This is the first time I've written exercises for a class such as this, and I
+am curious about how well they meet those goals.  I also find that it is very
+hard to write out problems and guidance in manner accessible to people who
+aren't yet familiar with the concepts.
+
+So if you have problems understanding the problems, find they are too
+difficult, or don't think they are helpful, please let me know.
+
+gordon@practicalhorseshoing.com
+
+
+------------------------------------------------
+WORKING THE PROBLEMS
+I have tried hard to write exercise solvable with the 'patterns' discussed in
+class, or which begin from those patterns.  If you are stuck, go back to the
+class decks to see if you can find something helpful.
+
+When departing from or extending those patterns, I have tried to be explicit
+about those departures and provide explanations of any additional steps.
+
+As things become more complicated, newbies find themselves tangled up in syntax
+and the integration of concepts they don't yet fully grok.  This is normal.
+Take your time, take a step back, and think things through.  Start from some
+basic query that does some of what the problem asks for, and begin to refine
+that.  As you add refinements, think about what you are trying to do and how
+that addition might work in a simpler query.  As you build up complexity, save
+copies of prior, cruder queries that are 'known good', and introduce new
+principles one at a time.  In this way you should always find yourself with one
+particular cause of failure, which is always easier to figure out than two.
+
+This stuff only seems simple after you understand it.  The whole point is to
+get to where it does seem simple.  Don't worry if it doesn't.
+
+
+------------------------------------------------
+COMMUNICATING WITH ME
+
+I get some email asking for help with problems.  I can help fastest if the
+question comes in a separate text file, with the query you are trying to write,
+and any discussion and questions in lines 'commented' with a '#' or '-- ' at
+the start of the row.  This allows me to quickly run the query, and quickly run
+any edits I make to it.  (Please also paste the question into the email body,
+so I can quickly read it on my smart phone.)  
+
+The faster I can help, the faster you'll get help.  
+
+
+==============================================================================
+EXERCISES
+------------------------------------------------
+SETUP
+Some of these exercises require the database 'books'.  A setup script for this,
+books_mysql.sql, is in sessions/02/setup.  That directory also holds a
+subdirectory, other_sqls/, with scripts for installation to other SQL
+implementations.
+
+
+------------------------------------------------
+EXPLORATION OF AVAILABLE INFORMATION
+Wherein we use 'SHOW DATABASES', etc
+
+- Write a query that confirms that the database 'books' has been created on
+  your database server.
+
+- Write a query that shows which tables are in the new database.
+
+- Write queries showing the fields in the tables 'authors' and 'publishers'
+    
+
+------------------------------------------------
+JOINS
+Use database 'books' for all of these.
+
+Inner Join
+----------
+Write a query "joining" all the rows in authors with all the rows in publishers.
+
+Okay, that's a lot of data.  Return all joined rows, but only the fields author
+id, author first and last name, author city, publisher city, and publisher
+name.
+-   It might be useful to print out this output, inspect it, and circle those
+    author city / publisher city pairs where the cities are the same.
+-   Think a bit on how you would modify this query to filter it to get only
+    those records.  What logical statement is true of only those?
+
+Write a query showing which authors live in the same city as a publisher.
+Return the author's first and last name, id, the city, and the name of the
+publiser in that city.
+
+Write a query that lists only the author ids of those authors who live in the
+same city as a publisher.
+
+Left Join
+---------
+Write a LEFT JOIN query, joing authors and publishers on city.
+- You should get more rows than when you did the first query.
+- Look at the output.  What logical statement is true for those authors who do
+  not live in the same city as a publisher?
+
+Write a query that returns only those authors that do not live in the same city
+as a publisher.
+
+
+------------------------------------------------
+SUBQUERIES
+
+Score Comparisons
+-----------------
+These exercises require the use of a new operator ('>') and the use of an AND
+statemet in the filter.  These are introduced in sequence.
+
+Write a query that returns all score events whose event_id is 1.
+
+Write a query that returns score value is greater than 20.
+-   In your WHERE clause, you substitute a '<' for an '='.
+
+Write a query that returns score events with event_id of 1 and whose score value is greater than 17.
+-   We can connect conditions in a WHERE clause by putting AND between them.  No commas.
+
+
+Write a query that gives the average score event 1.
+
+Write a query, using a subquery, that returns the student ids of records whose
+score on event 1 was greater than the average.
+
+
+Get Lifetime Age
+----------------
+We want to write a query giving us the president who lived the longest by
+state.  To do we first want some intermediary queries.
+
+As we have seen, the function DATEDIFF(date1, date2) returns the number of days
+between two dates.
+
+Write a query that calculates the age of death for each president.  (Note that
+we've done this in class.)
+
+Modify that query to return, for each state, the state and the age of its
+longest living president.
+
+From the data provided by that query, write query that returns the name of the
+longest lived president from Virginia, New York and Ohio.
+-   Note that the pattern of comparing a tuple of a record's values against a
+    list of tuples with the IN operator, as we used in class in the first
+    session, works here
+-   "Hard code" your values here -- that is, type them into the query
+
+Now, modify that query to use query that generated the longest living age, by
+state, to supply the list, rather than the hard code.
+
+Now write a query that returns, by state, the name of the shortest lived president.
+
+
+Duplicated Names
+----------------
+We will work up to a query that returns the names and states of all presidents
+from those states which have two presidents of the same last name.  (So we
+don't want just the names and states of those presidents.)
+
+To do this, we can use a query that returns those fields only for those states
+which have duplicated names.  We can find those states with a query, which we
+can then use as a subquery in a larger query.
+
+First, we have to write our filtering query.
+    - What is wanted here is, first, a list of state and last name pairs.
+      Write a query that does that.  Any GROUP BY query by query will do this.
+    -   Note that what is wanted here is first a count of records in state and
+        last name pairs.  Revise your query to count the number of records in
+        each pair.  
+    -   To make the results more readable, order them by count of pairing.  You
+        can using a function like COUNT() in the order by clause.  Add DESC to
+        make the sort go from high to low.
+    -   We cannot filter with WHERE on the result of an aggregate function, so
+        we pass this query into a a subquery and filter against that.
+        - Our subquery will go into the WHERE clause, and will need an alias.
+          Put 'AS tmp after the closing parenthesis of the subquery.
+        - The subquery will have to pass out a field name for the outer query
+          to filter against, so give the field returned by COUNT an alias.
+          Include that alias in the outer query SELECT, and refer to that alias
+          in the outer query WHERE.
+        - This is a lot of new, so I include a file with this query --
+          somesolutions/state_name_dupes.sql.  But try to see if you can get to
+          the answer before looking at that.
+    
+    -   Revise the query to return only the state names.
+
+    -   After all that, we have a query that returns the names of those states
+        that have two presidents of the same last name.  Because it returns
+        only those names, this query is suitable for use to supply a list for
+        comparison in a WHERE statement with an IN operator.
+
+So, finally, write a query that returns first name, last name and state for all
+presidents from states that have two presidents of the same last name.  You do
+this by selecting those fields from president, using a WHERE clause to filter
+for those records whose state is in the list supplied by the query developed
+above -- used here as a subquery.  A solution is in
+somesolutions/duped_states_presidents.sql.
+
+I have provided examples of the filtering query, and its use in the larger
+query.  Try to work through the problem without looking at these.  If you do
+look at these before getting your own solution, go back and try to write the
+queries yourself without reference to those -- use them as hints to principles,
+and figure out the application of those principles.
+
+
